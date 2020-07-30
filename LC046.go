@@ -2,10 +2,10 @@ func permute(nums []int) [][]int {
     res := make([][]int, 0)
     visit := make(map[int]struct{})
     curPerm := make([]int, 0)
-    return dfs(nums, res, visit, curPerm)
+    return dfs(nums, curPerm, res, visit)
 }
 
-func dfs(nums []int, res [][]int, visit map[int]struct{}, curPerm []int) [][]int {
+func dfs(nums, curPerm []int, res [][]int, visit map[int]struct{}) [][]int {
     if len(curPerm) == len(nums) {
         perm := make([]int, 0)
         for _, num := range curPerm {
@@ -20,7 +20,7 @@ func dfs(nums []int, res [][]int, visit map[int]struct{}, curPerm []int) [][]int
         if _, ok := visit[num]; !ok {
             curPerm = append(curPerm, num)
             visit[num] = struct{}{}
-            res = dfs(nums, res, visit, curPerm)
+            res = dfs(nums, curPerm, res, visit)
             delete(visit, num)
             curPerm = curPerm[:curLen]
         }
